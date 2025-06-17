@@ -638,7 +638,7 @@ namespace WCA.ViewModels
                     _expanded = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("Expanded"));
                     OnPropertyChanged(new PropertyChangedEventArgs("StateIcon"));
-                    OnPropertyChanged(nameof(HeaderWeightLabelVisibility)); // Added this line
+                    OnPropertyChanged(new PropertyChangedEventArgs("HeaderWeightLabelVisibility"));
 
                     if (_expanded)
                     {
