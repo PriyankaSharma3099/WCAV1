@@ -135,7 +135,7 @@ namespace WCA.ViewModels
             {
                 string[] lines = File.ReadAllLines(Globals.storagePath + "/WCA/" + Globals.TradeWaste_FileName);
                 string temprow = "";
-                bool checkWeight_Updated = true;
+                //bool checkWeight_Updated = true;
                 bool General_wasteType = false, DMR_wasteType = false, Cardboard_wasteType = false, Glass_wasteType = false, Food_wasteType=false;
                 string WB1100_General = "",
                     WB660_General = "",
@@ -459,15 +459,15 @@ namespace WCA.ViewModels
 
 
                     // write weight in tradewastefile
-                    if (checkWeight_Updated)
-                    {
+                    //if (Globals.Vehicle_Type == 1 || Globals.Vehicle_Type == 11)
+                    //{
                         for (int i = 0; i < lines.Count(); i++)
                         {
                             var values = lines[i].Split('|');
 
                            /* foreach (var item_customer_container in Job.CustomerContainers)
                             {*/
-                                if (values[21] == element.CustomerID && values[4] == element.SiteName && values[1] == Job.CustomerContainers[0].CPID) // && values[9] == element.WasteType  // "5490" CustomerID and "Glass" is Waste_Type
+                                if (values[21] == element.CustomerID && values[4] == element.SiteName && values[1] == Job.CustomerContainers[0].CPID && values[9] == element.WasteType)  // "5490" CustomerID and "Glass" is Waste_Type
                         { 
                             //  && values[1]== Job.CustomerContainers[0].CPID   removed as we need to update weight at all waste types of same job
                             int item_at_index = i;
@@ -484,13 +484,14 @@ namespace WCA.ViewModels
                                         else
                                         {
                                             string weight_local = "";
-                                            if (CancelReasonID == 0 && Weight.ToString() == "0")
+                                            if (CancelReasonID == 0 && Job.CustomerContainers[0].Weight_T.ToString() == "0")
                                             {
                                                 weight_local = "";
                                             }
                                             else if (CancelReasonID == 0 || CancelReasonID == 15)
                                             {
-                                                weight_local = Weight.ToString();
+                                                //weight_local = Weight.ToString();
+                                                weight_local = Job.CustomerContainers[0].Weight_T.ToString();
                                             }
                                             else
                                             {
@@ -500,7 +501,7 @@ namespace WCA.ViewModels
                                             temprow += "|" + (j != 24 ? (j != 26 ?(j == 28 ? "1" : values[j]) : date_time) : weight_local);  
                                         if (j==values.Length-1) {
                                             lines[item_at_index] = temprow;
-                                            checkWeight_Updated = false;
+                                            //checkWeight_Updated = false;
 
                                         }
 
@@ -511,7 +512,7 @@ namespace WCA.ViewModels
                                 }
                             // }
                         }
-                    }
+                    //}
                 }
 
                 if (WasteTypeFillCheck)
@@ -581,7 +582,7 @@ namespace WCA.ViewModels
                     });
 
 
-                    if (Globals.TicketData.Count == 1)
+                     if (Globals.TicketData.Count == 1)
                     {
                       /*  if (CancelReasonID == 0)
                         {*/
