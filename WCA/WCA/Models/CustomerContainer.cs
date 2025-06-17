@@ -27,7 +27,20 @@ namespace WCA.Models
                 }
             }
         }
-        public bool WeightVisibility { get; set; }
+
+        private bool _weightVisibility;
+        public bool WeightVisibility
+        {
+            get { return _weightVisibility; }
+            set
+            {
+                if (_weightVisibility != value)
+                {
+                    _weightVisibility = value;
+                    OnPropertyChanged(nameof(WeightVisibility));
+                }
+            }
+        }
         public string CPID { get; set; }
         public int RunNo { get; set; }
         public bool Completed { get; set; }
@@ -94,7 +107,7 @@ namespace WCA.Models
             IsVisibilityWasteType = isvisibilitywastetype;
             SiteName = sitename;
             CPID = cpid;
-            WeightVisibility = false;
+            this.WeightVisibility = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

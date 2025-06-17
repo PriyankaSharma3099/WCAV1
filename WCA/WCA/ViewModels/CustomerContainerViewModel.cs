@@ -21,7 +21,24 @@ namespace WCA.ViewModels
         public CustomerContainerViewModel(CustomerContainer customer_container)
         {
             this._customer_container = customer_container;
+            this._customer_container.PropertyChanged += CustomerContainer_PropertyChanged;
         }
+
+        private void CustomerContainer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CustomerContainer.WeightVisibility))
+            {
+                OnPropertyChanged(nameof(WeightVisibility));
+            }
+            // Optional: If Weight_T could also be changed directly in the model
+            // by some other process AND the ViewModel needs to be notified,
+            // add a similar check for Weight_T.
+            // if (e.PropertyName == nameof(CustomerContainer.Weight_T))
+            // {
+            //     OnPropertyChanged(nameof(Weight_T));
+            // }
+        }
+
         public string ContainerName { get { return _customer_container.ContainerName; } }
         public int Qty { get { return _customer_container.Qty; } }
         public int ExtraWasteId { get { return _customer_container.ExtraWasteId; } }
@@ -36,6 +53,32 @@ namespace WCA.ViewModels
         }*/
         public int RunNo { get { return _customer_container.RunNo; } }
         public string CustomerID { get { return _customer_container.CustomerID; } }
+
+        public int Weight_T
+        {
+            get { return _customer_container.Weight_T; }
+            set
+            {
+                if (_customer_container.Weight_T != value)
+                {
+                    _customer_container.Weight_T = value;
+                    OnPropertyChanged(nameof(Weight_T)); // Ensure BaseViewModel or this class has OnPropertyChanged
+                }
+            }
+        }
+
+        public bool WeightVisibility
+        {
+            get { return _customer_container.WeightVisibility; }
+            set
+            {
+                if (_customer_container.WeightVisibility != value)
+                {
+                    _customer_container.WeightVisibility = value;
+                    OnPropertyChanged(nameof(WeightVisibility)); // Ensure BaseViewModel or this class has OnPropertyChanged
+                }
+            }
+        }
 
         public bool ChargeAsContract
         {
