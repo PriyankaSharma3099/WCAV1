@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="currentPage"
+             xmlns:local="clr-namespace:WCA.ViewModels"
+             xmlns:model="clr-namespace:WCA.Models"
+             xmlns:c="clr-namespace:WCA"
+             x:Class="WCA.Views.Jobs"
+             Title="Jobs">
+        <ContentPage.ToolbarItems >
+        <!--  <ToolbarItem Text="Round Complete" Order="Primary" Priority="0" Clicked="Round_Complete" /> -->
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid >
+            <StackLayout x:Name="JobStack" Padding="1,0,1,0" >
+                <ListView HasUnevenRows="true"
+                    x:Name="JobsList"
+                    BackgroundColor="White"
+                    IsGroupingEnabled="true"
+                    SeparatorVisibility="None"
+                    SelectedItem="{Binding SelectedCustomerContainer}" 
+                    IsPullToRefreshEnabled="true"
+                    IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                    ItemsSource="{Binding Items}"
+                    RefreshCommand="{Binding LoadJobsCommand}"
+                    >
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid 
+                                   BackgroundColor="#ADD8E6" Padding="2,0,0,5" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />  
+                                        <RowDefinition Height="Auto"  />
+                                        <RowDefinition Height="Auto"  />
+                                        <RowDefinition Height="Auto"  />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15*" />
+                                        <ColumnDefinition Width="12*" />
+                                        <ColumnDefinition Width="15*" />
+                                        <ColumnDefinition Width="18*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Entry Grid.Column="0" Grid.Row="1" Text="{Binding RunNo}" FontSize="Small" />
+                                    <Picker Grid.Column="1" Grid.Row="1" x:Name="containerQty" SelectedIndexChanged="containerQty_SelectedIndexChanged"
+                                        ItemsSource="{Binding ContainerListPicker}" FontSize="Small"
+                                            Title="{Binding Qty}"  ItemDisplayBinding="{Binding index}"  
+                                        >
+                                    </Picker>
+                                    <Entry Grid.Column="2" Grid.Row="1" Text="{Binding Weight_T, Mode=TwoWay}" FontSize="Small" IsVisible="{Binding WeightVisibility}" Placeholder="Enter Weight" Keyboard="Numeric" />
+
+                                    <Picker Grid.Column="3" Grid.Row="1" x:Name="containerExtrawaste" FontSize="Small" SelectedIndexChanged="pickerWasteType_SelectedIndexChanged"
+                                        ItemsSource="{Binding ExtraWasteTypeList}" ItemDisplayBinding="{Binding Type}"  
+                                            Title="{Binding ExtraWasteType}"  IsVisible="{Binding IsVisibilityWasteType,Mode=TwoWay}">
+                                    </Picker>
+                                    <Label Grid.Column="0" Grid.Row="2"
+                                            VerticalOptions="Center"
+                                            FontAttributes="None"
+                                            FontSize="Small"
+                                            Text="{Binding ContainerName}"
+                                            VerticalTextAlignment="Center" />
+                                    <Label Grid.Column="1" Grid.Row="2" 
+                                           VerticalOptions="Center"
+                                           Text="{Binding WasteType}" />
+
+                                    <!--<CheckBox Grid.Column="3" Grid.Row="2" IsChecked="{Binding ChargeAsContract, Mode=TwoWay}" IsEnabled="False"
+                                              ></CheckBox>
+                                    <Label Grid.Column="2" Grid.Row="2" 
+                                           VerticalOptions="Center"
+                                           Text="IsContract" FontSize="Small" />-->
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell Tapped="ViewCell_Tapped" x:Name="vcJobs">
+                                <StackLayout BackgroundColor="{Binding Path=Expanded,  Converter={StaticResource BoolToColorConverter}}">
+                                    <Grid Margin="2,3,2,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="35*" />
+                                            <ColumnDefinition Width="30*" />
+                                            <ColumnDefinition Width="25*" />
+                                            <ColumnDefinition Width="10*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0"
+                                            FontAttributes="Bold"
+                                            FontSize="Small"
+                                            Text="{Binding Customer}"
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center" />
+                                        <Label Grid.Column="1" Grid.Row="0"
+                                            FontAttributes="Bold"
+                                            FontSize="Small" 
+                                            Text="{Binding Site}"
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center" />
+
+                                          <Label Grid.Column="0" Grid.Row="1"
+                                            FontAttributes="Bold"
+                                            FontSize="Small" 
+                                            Text="PostCode :"
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center" />
+                                         <Label Grid.Column="1" Grid.Row="1"
+                                            FontAttributes="Bold"
+                                            FontSize="Small" 
+                                            Text="{Binding PostCode}"
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center" />
+                                                    <Image Grid.Column="3" Grid.Row="0" x:Name="ImgA" Source="{Binding StateIcon}"  Margin="0,0,5,0" HeightRequest="20" WidthRequest="20" HorizontalOptions="End"/>
+                                        <Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Text="{Binding DriverNote}" TextColor="Red" />
+                                        <Button Grid.Column="2" Grid.Row="0" 
+                                                VerticalOptions="Center" 
+                                                FontSize="Body"
+                                                Text="Ticket" 
+                                                Command="{Binding TicketCommand}" 
+                                                IsVisible="{Binding Expanded}" 
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"/>
+                                         <StackLayout Grid.Column="0" Grid.Row="3"  VerticalOptions="Center" IsVisible="{Binding Expanded}">
+
+                                        <Label Grid.Column="0" Grid.Row="3"
+                                            FontAttributes="Bold"
+                                            FontSize="Small" 
+                                            Text="Cancel Reason:"
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center"
+                                                IsVisible="{Binding CancelReasonVisibility}" 
+                                               />
+                                            </StackLayout>
+                                           <StackLayout Grid.Column="1" Grid.Row="3"  VerticalOptions="Center" IsVisible="{Binding Expanded}">
+                                        <Picker                                            
+                                        Grid.Column="1" Grid.Row="3"  FontSize="Small" SelectedIndexChanged="pickerCancelJob_SelectedIndexChanged"
+                                        ItemsSource="{Binding JobCancelReasonList}" ItemDisplayBinding="{Binding Type}"  
+                                            Title="{Binding CancelReasonType}"  IsVisible="{Binding CancelReasonVisibility}"  >
+                                            <!--IsEnabled="{Binding CancelReasonVisibility,Mode=TwoWay}"-->
+                                        </Picker>
+                                          </StackLayout>
+                                            <Label Grid.Column="2" Grid.Row="3"
+                                            FontAttributes="Bold"
+                                            FontSize="Small" 
+                                            Text="CON."
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center"
+                                                HorizontalTextAlignment="End"
+                                                IsVisible="{Binding Expanded}" 
+                                               />                                          
+                                        <CheckBox Grid.Row="3" Grid.Column="3"  
+                                                IsVisible="{Binding Expanded}" IsChecked="{Binding CheckValue_Contaminated,Mode=TwoWay}" ></CheckBox>
+                                        <!--    <Label Grid.Column="0" Grid.Row="4"
+                                            FontAttributes="Bold"
+                                            FontSize="Small" 
+                                            Text="Weight:"
+                                            TextColor="Gray"
+                                            VerticalTextAlignment="Center"
+                                                IsVisible="{Binding WeightVisibility}" 
+                                               />
+                                        <BoxView HeightRequest="0.6" Color="Gray"  Grid.Row="4" Grid.Column="1" IsVisible="{Binding WeightVisibility}"/>
+                                     <Entry Margin="1,1,1,1" Grid.Row="4" Grid.Column="1" IsReadOnly="False"  Text="{Binding Weight}" Keyboard="Numeric" FontSize="Small" IsVisible="{Binding WeightVisibility}" BackgroundColor= "#ADD8E6"   /> -->
+                                        <Button  Grid.Column="1" Grid.Row="4" 
+                                                VerticalOptions="Center" 
+                                                FontSize="12"
+                                                Text="Job Complete" 
+                                                Command="{Binding JobCompleteCommand}"
+                                                 IsVisible="{Binding SpotJobvisibility}"
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"/>
+                                        <Button  Grid.Column="2" Grid.Row="4" 
+                                                VerticalOptions="Center" 
+                                                FontSize="Body"
+                                                Text="NTS" 
+                                                Command="{Binding NTSCommand}" 
+                                                IsVisible="{Binding Expanded}" 
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"/>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.RefreshItemsCommand}"  NumberOfTapsRequired="1" CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                    <BoxView HeightRequest="0.6" Color="Red" IsVisible="true"/>
+                                    <Grid Margin="2,0,2,0" IsVisible="{Binding Expanded}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="15*" />
+                                            <ColumnDefinition Width="12*" />
+                                            <ColumnDefinition Width="15*" />
+                                            <ColumnDefinition Width="18*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" 
+                                           VerticalOptions="Center"
+                                           Text="Run No"  FontAttributes="Bold"
+                                            IsVisible="{Binding Expanded}" />
+                                        <Label Grid.Column="1" Grid.Row="0" 
+                                           VerticalOptions="Center"
+                                           Text="Qty"  FontAttributes="Bold"
+                                               IsVisible="{Binding Expanded}"/>
+                                        <Label Grid.Column="2" Grid.Row="0" 
+                                         VerticalOptions="Center"
+                                         Text="Weight"  FontAttributes="Bold"  
+                                         IsVisible="{Binding Expanded}"/>
+                                        <Label Grid.Column="3" Grid.Row="0" 
+                                           VerticalOptions="Center"
+                                           Text="Extra Waste"  FontAttributes="Bold"  
+                                               IsVisible="{Binding Expanded}"/>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference currentPage}, Path=BindingContext.RefreshItemsCommand}"  NumberOfTapsRequired="1" CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.GroupHeaderTemplate>
+                </ListView>
+                <Grid Padding="5,0,5,5">
+                     <!--<Button  HeightRequest="60"  Grid.Row="0" Grid.Column="0"
+                                                VerticalOptions="Center" 
+                                                FontSize="13"
+                                                Text="Jobs" 
+                                                Command="{Binding NTSCommand}" 
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"/>-->
+                     <Button  HeightRequest="60"   Grid.Row="0" Grid.Column="0"
+                                                VerticalOptions="Center" 
+                                                FontSize="15"
+                                                Text="Tomorrow's Jobs"
+                                                FontAttributes="Bold"
+                                                Clicked="ButtonTomorrowJobs_Clicked"
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"/>
+                         <Button  HeightRequest="60"   Grid.Row="0" Grid.Column="1"
+                                                VerticalOptions="Center" 
+                                                FontSize="15"
+                                                FontAttributes="Bold"
+                                                Text="About App"
+                                                Clicked="onAboutClicked"
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"/>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+    
+    
+    

@@ -1,0 +1,4 @@
+﻿TicketStart: E100522
+Date:16/05/2022
+DriverID:37
+VehicleID:2120

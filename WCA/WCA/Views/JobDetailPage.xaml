@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WCA.Views.JobDetailPage"
+             Title="{Binding Customer}"
+             xmlns:controls="clr-namespace:SignaturePad.Forms;assembly=SignaturePad.Forms">
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="PDF" IconImageSource="example_icon.png" Order="Primary" Priority="0" Clicked="PDF_Clicked" />
+    </ContentPage.ToolbarItems>-->
+    <ScrollView>
+<StackLayout Spacing="20" Padding="15">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="Auto"  />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Customer Details" FontSize="Medium" />
+            <Label Grid.Row="1" Grid.Column="0" Text="Customer Name: " FontSize="Small"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Site: " FontSize="Small"/>
+            <Label Grid.Row="3" Grid.Column="0" Text="Waste Type: " FontSize="Small"/>
+            <Label Grid.Row="4" Grid.Column="0" Text="Container Type: " FontSize="Small"/>
+            <Label Grid.Row="5" Grid.Column="0" Text="Total Qty: " FontSize="Small"/>
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Customer}" FontSize="Small"/>
+            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Site}" FontSize="Small"/>
+            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Customer_WasteType}" FontSize="Small"/>
+            <Label Grid.Row="4" Grid.Column="1" Text="{Binding Container_Type_DetailPage}" FontSize="Small"/>
+            <Label Grid.Row="5" Grid.Column="1" Text="{Binding ContainerTotalQty}" FontSize="Small"/>
+            </Grid>
+        <Grid x:Name="LayoutRoot" Padding="6" IsVisible="{Binding SignaturePadVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="12" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <ContentView Padding="1" BackgroundColor="#B8860B" >
+                <controls:SignaturePadView x:Name               =   "signatureView" 
+                                           StrokeCompleted      =   "SignatureChanged" 
+                                           Cleared              =   "SignatureChanged"
+                                           CaptionTextColor     =   "#B8860B" 
+                                           ClearTextColor       =   "#B8860B" 
+                                           PromptTextColor      =   "#B8860B"
+                                           SignatureLineColor   =   "#B8860B" 
+                                           BackgroundColor      =   "#FAFAD2"
+                                           StrokeWidth          =   "3"
+                                           HeightRequest        =   "140"
+                                           StrokeColor          =   "Black"
+                                           CaptionText          =   "Sign above the line"
+                                           PromptText           =   "Customer Signature "
+                                           />
+            </ContentView>
+            <Button x:Name="btnSaveImage" Padding="10" Text="Save Signature" Clicked="SaveImageClicked" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="2" />
+        </Grid>
+
+    <Grid x:Name="SignatureFlag" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+                    <Label  Padding="1" Grid.Row="0" Text="Signature already saved" FontSize="Small"  IsVisible="{Binding SignatureFoundVisibility}" />
+        </Grid>
+
+
+        <Grid x:Name="LayoutButtons" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label  Padding="6" Grid.Row="0" Text="No one to Sign" FontSize="Large"  IsVisible="{Binding IsNTSMode}" />
+            <Button  Padding="6" x:Name="btnAttachImages" Clicked="btnAttachImages_Clicked" Text="Attach Images" FontSize="14"  HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Grid.Column="0" IsVisible="{Binding IsImageAttachMode}"/>
+            <Button  Padding="6" x:Name="btnSendTicket" Clicked="btnSendTicket_Clicked" Text="Send Ticket" FontSize="14" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Grid.Column="1"  /> <!--             IsVisible="{Binding SendMail_Visibility}"-->
+            <Button  Padding="6" x:Name="btnFinishTicket" Clicked="btnFinish_Clicked" Text="Finish" FontSize="14" HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Grid.Column="2"  IsVisible="false"/> <!--             IsVisible="{Binding FinishButton_Visibility}"-->
+            <!--<Button  Padding="6" x:Name="btnSpotJob" Clicked="btn_Job_Completed" Text="Job Complete" FontSize="12"  HorizontalOptions="Center" VerticalOptions="End" Grid.Row="1" Grid.Column="2"  IsVisible="{Binding SpotJob_visibility}"/>-->
+        </Grid>
+        <!--<ActivityIndicator IsRunning="False" />-->
+    </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,14 @@
+﻿ID	Reason
+1	Truck breakdown
+2	Skip / bin empty
+3	No access
+4	Roadworks
+5	Customer request
+6	On stop
+7	Overloaded skip
+8	Rescheduled
+9	Covid-19 Closed
+10	Closed
+11	Blocked by vehicle
+12	Booked as General waste
+13	Snow or Flood

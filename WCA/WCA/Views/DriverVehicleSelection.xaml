@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local="clr-namespace:WCA.ViewModels"
+             xmlns:model="clr-namespace:WCA.Models"
+             xmlns:converters="clr-namespace:WCA"
+             x:Class="WCA.Views.DriverVehicleSelection">
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Label  Padding="5,15,5,15" HorizontalTextAlignment="Center" Text="Driver and Vehicle Detail" TextColor="Blue" FontSize="Medium" FontAttributes="Bold" />
+                <Grid Padding="5,10,0,5" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+                        <RowDefinition Height="Auto"  />
+
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*" />
+                    </Grid.ColumnDefinitions>
+                    <Picker Grid.Column="0" Grid.Row="0"  FontSize="Body"
+                            Title="Select Driver" ItemsSource="{Binding DriverLists}" 
+                            ItemDisplayBinding="{Binding Driver_Name}" SelectedItem="{Binding SelectedItem}" >
+                        <Picker.Behaviors>
+                            <converters:PickerToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SelectedProviderChanged}" />
+                        </Picker.Behaviors>
+                    </Picker>
+                    <Picker Grid.Column="0" Grid.Row="1" FontSize="Body"
+                                            Title="Select Vehicle"   ItemsSource="{Binding VehicleLists}" 
+                                        ItemDisplayBinding="{Binding Vehicle_Name}" 
+                                        >
+                        <Picker.Behaviors>
+                            <converters:PickerToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SelectedProviderChanged}" />
+                        </Picker.Behaviors>
+                    </Picker>
+                    <Label HorizontalTextAlignment="End" Padding="0,0,5,0" Grid.Column="0" Grid.Row="2" VerticalTextAlignment="End" Text="Add New Vehicle" FontSize="Body" TextColor="#760aa1"  >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnClick_Add_Vehicle}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Entry  Text="{Binding vehicle_name_text_entry, Mode=TwoWay}" MaxLength="20" Grid.Column="0" Grid.Row="3" FontSize="Body" Placeholder="Enter Vehicle Name"   IsVisible="{Binding isVisible}" />
+                      <Picker Grid.Column="0" Grid.Row="4" FontSize="Body"
+                                            Title="Select Vehicle Type"   ItemsSource="{Binding VehicleTypesLists}" 
+                                        ItemDisplayBinding="{Binding Vehicle_Name}" IsVisible="{Binding isVisible}"
+                                        >
+                        <Picker.Behaviors>
+                            <converters:PickerToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SelectedProviderChanged}" />
+                        </Picker.Behaviors>
+                    </Picker>
+
+
+
+
+
+
+                                 <Button HorizontalOptions="End" Grid.Column="0" Grid.Row="5" Margin="4,7,5,7"
+                                                VerticalOptions="Center" 
+                                                Text="Save" 
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"
+                            Command="{Binding Save_button_click_Command}"  IsVisible="{Binding isVisible}"/>
+
+                    <Picker Grid.Column="0" Grid.Row="6" FontSize="Body"
+                                            Title="Select Area Type"   ItemsSource="{Binding AreasLists}" 
+                                        ItemDisplayBinding="{Binding Area_Name}" 
+                                        >
+                        <Picker.Behaviors>
+                            <converters:PickerToCommandBehavior EventName="SelectedIndexChanged" Command="{Binding SelectedProviderChanged}" />
+                        </Picker.Behaviors>
+                    </Picker>
+                    <Label HorizontalTextAlignment="End" Padding="0,0,5,0" Grid.Column="0" Grid.Row="7" VerticalTextAlignment="End" Text="Add New Area" FontSize="Body" TextColor="#760aa1"  >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnClick_Add_Area}" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Entry  Text="{Binding area_name_text_entry, Mode=TwoWay}" MaxLength="20" Grid.Column="0" Grid.Row="8" FontSize="Body" Placeholder="Enter Area Name"   IsVisible="{Binding isVisible_area}" />
+                                 <Button HorizontalOptions="End" Grid.Column="0" Grid.Row="9" Margin="4,7,5,7"
+                                                VerticalOptions="Center" 
+                                                Text="Save" 
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"
+                            Command="{Binding Area_Save_button_click_Command}"  IsVisible="{Binding isVisible_area}"/>
+                </Grid>
+                <Button Grid.Column="0" Grid.Row="3" Margin="10,20,10,10"
+                                                VerticalOptions="Center" 
+                                                FontSize="Body"
+                                                Text="Next" 
+                                                TextColor="#FFFFFF"
+                                                BackgroundColor="#3264C8"
+Command="{Binding Next_button_click_Command}"                        />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

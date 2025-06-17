@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:WCA"
+             mc:Ignorable="d"
+             x:Class="WCA.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+            <Label x:Name="lblEnter" Text="Enter PIN" FontSize="Title"  HorizontalOptions="Center"></Label>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Entry x:Name="txtPin1" Text="{Binding Pin1, Mode=TwoWay}" MaxLength="1" WidthRequest="4" Grid.Row="0" Grid.Column="0" FontSize="Header" IsPassword="True" Keyboard="Numeric" HorizontalTextAlignment="Center" TextChanged="Pin1_TextChanged" />
+                <Entry x:Name="txtPin2" Text="{Binding Pin2}" MaxLength="1" WidthRequest="4" Grid.Row="0" Grid.Column="1" FontSize="Header" IsPassword="True" Keyboard="Numeric" HorizontalTextAlignment="Center" TextChanged="Pin2_TextChanged" />
+                <Entry x:Name="txtPin3" Text="{Binding Pin3}" MaxLength="1" WidthRequest="4" Grid.Row="0" Grid.Column="2" FontSize="Header" IsPassword="True" Keyboard="Numeric" HorizontalTextAlignment="Center" TextChanged="Pin3_TextChanged" />
+                <Entry x:Name="txtPin4" Text="{Binding Pin4}" MaxLength="1" WidthRequest="4" Grid.Row="0" Grid.Column="3" FontSize="Header" IsPassword="True" Keyboard="Numeric" HorizontalTextAlignment="Center" TextChanged="Pin4_TextChanged" Completed="txtPin4_Completed">
+                    <Entry.Behaviors>
+                        <local:EventToCommandBehavior EventName="Completed" Command="{Binding CompletedCommand}" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Grid>
+            <Label x:Name="lblIncorrect" Text="" FontSize="Large"  HorizontalOptions="Center"></Label>
+            <!-- <Button VerticalOptions="Center" Text="Clear" Command="{Binding ClearCommand}"/> -->
+            <!-- <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/> -->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
