@@ -207,7 +207,7 @@
                                         <Label Grid.Column="2" Grid.Row="0" 
                                          VerticalOptions="Center"
                                          Text="Weight"  FontAttributes="Bold"  
-                                         IsVisible="{Binding Expanded}"/>
+                                         IsVisible="{Binding HeaderWeightLabelVisibility}"/>
                                         <Label Grid.Column="3" Grid.Row="0" 
                                            VerticalOptions="Center"
                                            Text="Extra Waste"  FontAttributes="Bold"  

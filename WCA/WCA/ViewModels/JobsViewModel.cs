@@ -638,6 +638,8 @@ namespace WCA.ViewModels
                     _expanded = value;
                     OnPropertyChanged(new PropertyChangedEventArgs("Expanded"));
                     OnPropertyChanged(new PropertyChangedEventArgs("StateIcon"));
+                    OnPropertyChanged(nameof(HeaderWeightLabelVisibility)); // Added this line
+
                     if (_expanded)
                     {
                         this.AddRange(jobCustomerContainers);
@@ -669,6 +671,11 @@ namespace WCA.ViewModels
 
                 }
             }
+        }
+
+        public bool HeaderWeightLabelVisibility
+        {
+            get { return Expanded && (Globals.Vehicle_Type == 1 || Globals.Vehicle_Type == 11); }
         }
 
         public void weightUpdateWasteType(bool visibility) {
