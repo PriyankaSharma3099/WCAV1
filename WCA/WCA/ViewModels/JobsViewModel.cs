@@ -465,9 +465,9 @@ namespace WCA.ViewModels
                         {
                             var values = lines[i].Split('|');
 
-                           /* foreach (var item_customer_container in Job.CustomerContainers)
-                            {*/
-                                if (values[21] == element.CustomerID && values[4] == element.SiteName && values[1] == Job.CustomerContainers[0].CPID && values[9] == element.WasteType)  // "5490" CustomerID and "Glass" is Waste_Type
+                         foreach (var item_customer_container in Job.CustomerContainers)
+                         {
+                        if (values[21] == element.CustomerID && values[4] == element.SiteName && values[1] == item_customer_container.CPID && values[9] == element.WasteType)  // "5490" CustomerID and "Glass" is Waste_Type
                         { 
                             //  && values[1]== Job.CustomerContainers[0].CPID   removed as we need to update weight at all waste types of same job
                             int item_at_index = i;
@@ -484,14 +484,14 @@ namespace WCA.ViewModels
                                         else
                                         {
                                             string weight_local = "";
-                                            if (CancelReasonID == 0 && Job.CustomerContainers[0].Weight_T.ToString() == "0")
+                                            if (CancelReasonID == 0 && item_customer_container.Weight_T.ToString() == "0")
                                             {
                                                 weight_local = "";
                                             }
                                             else if (CancelReasonID == 0 || CancelReasonID == 15)
                                             {
                                                 //weight_local = Weight.ToString();
-                                                weight_local = Job.CustomerContainers[0].Weight_T.ToString();
+                                                weight_local = item_customer_container.Weight_T.ToString();
                                             }
                                             else
                                             {
@@ -510,8 +510,8 @@ namespace WCA.ViewModels
                                     // }
                                     //  break;
                                 }
-                            // }
                         }
+                    }
                     //}
                 }
 

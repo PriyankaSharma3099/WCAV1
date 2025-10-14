@@ -475,7 +475,7 @@ namespace WCA.Views
                                             job_body += "\nContaminated Job.";
                                         }
                                         builder_admin_email.TextBody = job_body;
-                                if (File.Exists(path_admin_ticket) && Globals.Vehicle_Type == 1)
+                                if (File.Exists(path_admin_ticket) && (Globals.Vehicle_Type == 1 || Globals.Vehicle_Type == 11))
                                 {
                                     builder_admin_email.Attachments.Add(path_admin_ticket); // attach pdf
                                 }

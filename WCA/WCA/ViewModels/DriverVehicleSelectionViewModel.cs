@@ -422,7 +422,6 @@ namespace WCA.ViewModels
         //    string TenantId = "36f4c3be-b3b9-4602-abe3-5301c9544cbf"; 
         //string Scopes = "https://graph.microsoft.com/.default";
         //    string FromEmailAddress = "tickets@ismwaste.co.uk"; //"ISMtickets@frog.co.uk"
-        //string toEmail = "dps.microlentsystems@gmail.com";
         //string subject = "Test Mail form WCA with Frog IT Support";
         //string body = "Test Body";
         //string[] GraphScopes = { "https://graph.microsoft.com/.default" };
